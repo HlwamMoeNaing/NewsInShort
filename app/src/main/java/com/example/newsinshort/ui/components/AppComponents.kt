@@ -1,9 +1,13 @@
 package com.example.newsinshort.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -15,52 +19,125 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.loader.content.Loader
+import coil.compose.AsyncImage
+import com.example.newsinshort.R
+import com.example.newsinshort.ui.datalayer.entity.Article
 import com.example.newsinshort.ui.datalayer.entity.NewsResponse
 import com.example.newsinshort.ui.theme.Purple40
 
 @Composable
 fun Loader() {
-Column(
-    modifier = Modifier
-        .fillMaxSize()
-        .padding(8.dp),
-    horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.Center
-) {
-    CircularProgressIndicator(
+    Column(
         modifier = Modifier
-            .size(60.dp)
-            .padding(10.dp),
-        color = Purple40
-    )
-}
+            .fillMaxSize()
+            .padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(60.dp)
+                .padding(10.dp),
+            color = Purple40
+        )
+    }
 
 }
 
 @Composable
-fun NewList(response:NewsResponse) {
-LazyColumn {
-    items(response.articles){article->
-        NormalTextComponent(textValue =article.title ?: "" )
+fun NewList(response: NewsResponse) {
+    LazyColumn {
+        items(response.articles) { article ->
+            NormalTextComponent(textValue = article.title ?: "")
+        }
     }
 }
-}
 
 @Composable
-fun NormalTextComponent(textValue:String) {
-    Text(text = textValue,
+fun NormalTextComponent(textValue: String) {
+    Text(
+        text = textValue,
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(8.dp),
         style = TextStyle(
             fontSize = 18.sp,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
+            fontFamily = FontFamily.Monospace,
+            color = Purple40
         )
+    )
+}
+
+
+@Composable
+fun HeadingTextComponent(textValue: String) {
+    Text(
+        text = textValue,
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(8.dp),
+        style = TextStyle(
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Medium
         )
+    )
+}
+
+@Composable
+fun NewsRowComponent(page: Int, article: Article) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)
+            .background(Color.White)
+    ) {
+        AsyncImage(
+            model = article.urlToImage,
+            contentDescription = "",
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(240.dp),
+            placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
+            error = painterResource(id = R.drawable.ic_launcher_foreground)
+        )
+
+        Spacer(modifier = Modifier.size(20.dp))
+        HeadingTextComponent(textValue = article.title ?: "")
+        Spacer(modifier = Modifier.size(10.dp))
+        NormalTextComponent(textValue = article.description ?: "")
+        Spacer(modifier = Modifier.weight(1f))
+        AuthorDetailComponent(article.author,article.source?.name)
+    }
+
+}
+
+@Composable
+fun AuthorDetailComponent(authorName: String?, sourceName: String?) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp)
+    ) {
+
+        authorName?.also {
+            Text(text = authorName)
+        }
+Spacer(modifier = Modifier.weight(1f))
+        sourceName?.also {
+            NormalTextComponent(textValue = sourceName)
+        }
+
+
+    }
+
 }
