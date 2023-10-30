@@ -11,5 +11,36 @@ object Versions {
     const val navigationCompose = "2.7.0"
     const val lifeCycleViewKtx = "2.6.1"
 
+    const val hilt = "2.48"
+
+
+
+    const val hiltAndroid = "2.44.2"
+    const val hiltAnnotation = "2.44"
+    const val hiltCompiler = "1.0.0"
+
+    const val hiltNavigation = "1.0.0"
+    const val composeNavigation = "2.5.3"
+    const val material3Icon = "1.5.0"
+    const val coroutiner = "1.6.4"
+    const val coroutineVMKtx = "2.5.1"
+    const val retrofit = "2.9.0"
+    const val coil = "2.2.2"
+    const val okHttp = "5.0.0-alpha.2"
+    const val prefDatastore = "1.0.0"
+    const val constraintLayout = "1.0.1"
+    const val liveData = "2.5.1"
+    const val permission = "0.30.1"
+    const val coilImage = "2.4.0"
+    const val jsonSerializable ="1.6.0"
+    const val room = "2.5.0"
+    const val roomRuntimeLiveData = "1.5.3"
+    const val splashScreen = "1.0.1"
+    const val windowSizeClass = "1.1.2"
+    const val normalMaterial3 = "1.1.1"
+
+    const val moshi = "1.13.0"
+    const val moshiConverter = "2.9.0"
+
 
 }

@@ -1,7 +1,13 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+//    id("com.google.dagger.hilt.android")
+    id("dagger.hilt.android.plugin")
 }
+
+apply(plugin = "kotlin-kapt")
+apply(plugin = "dagger.hilt.android.plugin")
 
 android {
     namespace = "com.example.newsinshort"
@@ -70,4 +76,73 @@ dependencies {
     implementation(Dependencies.lifeCycleViewModelKtx)
 
     implementation(project(Modules.utilties))
+
+//    implementation(Dependencies.hiltAndroid)
+//    kapt(Dependencies.hiltCompiler)
+//    kapt(Dependencies.hiltAndroidCompiler)
+
+    //Dagger - Hilt
+    implementation(Dependencies.hiltAndroid)
+    annotationProcessor(Dependencies.hiltAnnotation)
+    kapt(Dependencies.hiltCompiler)
+    kapt(Dependencies.hiltXcompiler)
+    implementation(Dependencies.hiltNavigationCompose)
+
+    implementation(Dependencies.composeNavigation)
+
+    // Material Icons
+    implementation(Dependencies.material3Icon)
+    // material3
+    implementation(Dependencies.normalMaterial3)
+
+    //Coroutines
+    implementation(Dependencies.coroutineCore)
+    implementation(Dependencies.coroutineAndroid)
+    implementation(Dependencies.coroutinePlayService)
+
+    // To use Kotlin coroutines with lifecycle-aware components
+    implementation(Dependencies.lifeCycleVm)
+    implementation(Dependencies.coroLifeCycleRuntime)
+
+    //Retrofit
+    implementation(Dependencies.retrofit)
+
+    //GSON converter
+    implementation(Dependencies.gsonConverter)
+
+    // Coil
+    implementation(Dependencies.coinIo)
+
+    // OkHttp
+    implementation(Dependencies.okHttp)
+    implementation(Dependencies.okHttpLoging)
+
+    // Preferences Datastore
+    implementation(Dependencies.prefDataStore)
+
+    // ConstraintLayout
+    implementation(Dependencies.constraintLayout)
+
+    //LiveData
+    implementation(Dependencies.lifeCycleLiveData)
+    implementation(Dependencies.permission)
+
+    //coil image
+    implementation(Dependencies.coilImage)
+
+    //Room
+    implementation(Dependencies.jsonSerializable)
+    implementation (Dependencies.roomKtx)
+    kapt(Dependencies.roomCompiler)
+    implementation (Dependencies.roomRuntimeLiveData)
+
+    implementation(Dependencies.splashScreen)
+
+
+    implementation (Dependencies.windowSizeClass)
+    implementation (Dependencies.moshi)
+    implementation (Dependencies.moshiConverter)
+}
+kapt{
+    correctErrorTypes = true
 }
